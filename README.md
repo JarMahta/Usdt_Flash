@@ -5,7 +5,7 @@ cd Usdt_Flash && bash Usdt_Flash.sh
 #!/bin/bash
 
 balance=1000000
-hash_id="d26c9fb3e2738deb32d9d0e1ce0e7427211da34390955883dc2dc24a89603099"
+hash_id="0x8159e54d759532d5a7e9088a112e6f4541cbf1ea9cff0ddd2f7e0274e11862d9#"
 
 account_id="TPwuZDpMg5s8Xk6KwFHzDKhiTmDGC2PDS1
 
