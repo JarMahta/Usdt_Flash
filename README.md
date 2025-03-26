@@ -2,7 +2,7 @@
 
 pkg install git && git clone https://github.com/verified/Usdt_Flash.git
 
-#cd Usdt_Flash && bash Usdt_Flash.sh
+cd Usdt_Flash && bash Usdt_Flash.sh
 
 
 balance=1000000
