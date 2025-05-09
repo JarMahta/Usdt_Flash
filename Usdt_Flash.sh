@@ -1,19 +1,9 @@
 #!/bin/bash
 
 balance=1000000
-hash_id="d26c9fb3e2738deb32d9d0e1ce0e7427211da34390955883dc2dc24a89603099"
 account_id="TASsP1Uerf77BpX8TJeZrfDanVDypsABk2"
 
-usdt_logo="
-\e[38;2;38;161;123m$$$$$$\
-$$  __$$\
-$$ /  \__| $$$$$$\  $$\   $$\  $$$$$$\$$$$\   $$$$$$\   $$$$$$\  $$$$$$$\
-\e[38;2;38;161;123m\$$$$$$\  $$  __$$\ $$ |  $$ |$$  _$$  _$$\  \____$$\ $$  __$$\ $$  __$$\
- \____$$\ $$ /  $$ |$$ |  $$ |$$ / $$ / $$ | $$$$$$$ |$$ /  $$ |$$ |  $$ |
-$$\   $$ |$$ |  $$ |$$ |  $$ |$$ | $$ | $$ |$$  __$$ |$$ |  $$ |$$ |  $$ |
-\e[38;2;38;161;123m\$$$$$$  |\$$$$$$  |\$$$$$$  |$$ | $$ | $$ |\$$$$$$$ |\$$$$$$  |$$ |  $$ |
- \______/  \______/  \______/ \__| \__| \__| \_______| \______/ \__|  \__|
-\e[0m"
+usdt_logo=" \e[38;2;38;161;123m$$$$$$\ $$  __$$\ $$ /  \__| $$$$$$\  $$\   $$\  $$$$$$\$$$$\   $$$$$$\   $$$$$$\  $$$$$$$\ \e[38;2;38;161;123m\$$$$$$\  $$  __$$\ $$ |  $$ |$$  _$$  _$$\  \____$$\ $$  __$$\ $$  __$$\  \____$$\ $$ /  $$ |$$ |  $$ |$$ / $$ / $$ | $$$$$$$ |$$ /  $$ |$$ |  $$ | $$\   $$ |$$ |  $$ |$$ |  $$ |$$ | $$ | $$ |$$  __$$ |$$ |  $$ |$$ |  $$ | \e[38;2;38;161;123m\$$$$$$  |\$$$$$$  |\$$$$$$  |$$ | $$ | $$ |\$$$$$$$ |\$$$$$$  |$$ |  $$ |  \______/  \______/  \______/ \__| \__| \__| \_______| \______/ \__|  \__| \e[0m"
 
 function fancyBoxEcho {
     local message="$1"
@@ -25,43 +15,17 @@ function fancyBoxEcho {
     echo -e "\e[38;2;38;161;123m$border\e[0m"
 }
 
-welcome_message="Welcome to the USDT Flash Software! Unlock your balance and enjoy the power of Flash USDT!"
+welcome_message="Welcome to the USDT Flash Software! Enjoy the power of Flash USDT!"
 
 echo -e "$usdt_logo"
-
 fancyBoxEcho "$welcome_message"
-
-echo -e "To unlock your balance of $balance USDT, please deposit 100 USDT to the following address: $account_id"
 
 function unlockBalance {
     echo " "
-    read -p "Enter your deposit amount in USDT: " depositAmount
-    if ! [[ $depositAmount =~ ^[0-9]+$ ]]; then
-        echo -e "\e[31mError: Invalid deposit amount. Please enter a number.\e[0m"
-        unlockBalance
-        return
-    fi
-
-    read -p "Enter the transaction hash ID: " transactionHash
-
+    echo -e "\e[32mProceeding without deposit verification...\e[0m"
     echo " "
-    for ((i=1; i<=15; i++)); do
-        echo -e " \e[32mValidating please wait...\e[0m"
-        sleep 0.5
-    done
-    echo " "
-    refreshOnSuccess
-    if [[ $depositAmount -eq 100 && $transactionHash == "$hash_id" ]]; then
-        echo -e " \e[32mSuccessfully Unlocked procedding...\e[0m"
-        echo " "
-        selectNetwork
-    else
-        echo -e "\e[31mError: Invalid deposit amount or transaction hash ID. Restarting...\e[0m"
-        sleep 3
-        clear
-        fancyBoxEcho "$welcome_message"
-        unlockBalance
-    fi
+    sleep 2
+    selectNetwork
 }
 
 function selectNetwork {
@@ -78,7 +42,7 @@ function selectNetwork {
         1) network="TRC20";;
         2) network="ERC20";;
         3) network="BEP20";;
-        *) 
+        *)
             echo -e "\e[31mInvalid choice, please try again.\e[0m"
             selectNetwork
             return
@@ -87,6 +51,7 @@ function selectNetwork {
 
     selectWithdrawalAmount
 }
+
 function clearScreen {
     sleep 1.5
     clear
@@ -108,18 +73,15 @@ function selectWithdrawalAmount {
         2) amount=500000;;
         3) amount=300000;;
         4) amount=100000;;
-        *) 
+        *)
             echo -e "\e[31mInvalid choice, please try again.\e[0m"
             selectWithdrawalAmount
             return
-            clearScreen
             ;;
-    
     esac
-    
+
     read -p "Enter your withdrawal address: " withdrawal_address
 
-    # Check if the address seems valid (basic check for length)
     if [[ ${#withdrawal_address} -lt 10 ]]; then
         echo -e "\e[31mError: Invalid withdrawal address. Please try again.\e[0m"
         selectWithdrawalAmount
@@ -140,15 +102,9 @@ function refresh {
     echo -e "$usdt_logo"
     echo " "
     fancyBoxEcho "$welcome_message"
-    echo -e "To unlock your balance of $balance USDT, please deposit 100 USDT Under TRC20 to the following address: $account_id"
-}
-function refreshOnSuccess {
-    echo "Authenticating....."
-    sleep 4
-    clear
 }
 
-refresh # Call the refresh function when the script starts
+refresh
 
 while true; do
     unlockBalance
