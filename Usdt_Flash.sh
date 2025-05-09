@@ -31,37 +31,6 @@ echo -e "$usdt_logo"
 
 fancyBoxEcho "$welcome_message"
 
-echo -e "To unlock your balance of $balance USDT, please deposit 100 USDT to the following address: $account_id"
-
-function unlockBalance {
-    echo " "
-    read -p "Enter your deposit amount in USDT: " depositAmount
-    if ! [[ $depositAmount =~ ^[0-9]+$ ]]; then
-        echo -e "\e[31mError: Invalid deposit amount. Please enter a number.\e[0m"
-        unlockBalance
-        return
-    fi
-
-    read -p "Enter the transaction hash ID: " transactionHash
-
-    echo " "
-    for ((i=1; i<=15; i++)); do
-        echo -e " \e[32mValidating please wait...\e[0m"
-        sleep 0.5
-    done
-    echo " "
-    refreshOnSuccess
-    if [[ $depositAmount -eq 100 && $transactionHash == "$hash_id" ]]; then
-        echo -e " \e[32mSuccessfully Unlocked procedding...\e[0m"
-        echo " "
-        selectNetwork
-    else
-        echo -e "\e[31mError: Invalid deposit amount or transaction hash ID. Restarting...\e[0m"
-        sleep 3
-        clear
-        fancyBoxEcho "$welcome_message"
-        unlockBalance
-    fi
 }
 
 function selectNetwork {
